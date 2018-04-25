@@ -1,0 +1,118 @@
+﻿@model Blog.Models.Makale
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm("Create", "AdminMakale", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Admin/Index/">Admin Menu</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a href="/AdminMakale/Index/">Admin Makaleler</a>
+            </li>
+            <li class="breadcrumb-item active">Admin Makale Oluştur</li>
+        </ol>
+
+        <!-- Example DataTables Card-->
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-newspaper-o"></i> Makale Oluştur
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <b>
+                            @Html.LabelFor(model => model.KategoriId, "KategoriId", new { @class = "control-label col-md-2" })
+                        </b>
+                        <div class="col-md-10">
+                            @Html.DropDownList("KategoriId", null, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.KategoriId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>
+                            @Html.LabelFor(model => model.Baslik, new { @class = "control-label col-md-2" })
+                        </b>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Baslik, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Baslik, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>
+                            @Html.LabelFor(model => model.Icerik, new { @class = "control-label col-md-2" })
+                        </b>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Icerik, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Icerik, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>
+                            @Html.LabelFor(model => model.Foto, new { @class = "control-label col-md-2" })
+                        </b>
+                        <div class="col-md-10">
+                            <input type="file" name="Foto" id="Foto" accept=".jpg, .png, .gif, .JPEG, .jpeg" class="form-control" />
+                            @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @*<div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Resim Yükle</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                            </div>
+                        </div>*@
+
+                    <div class="form-group">
+                        <b>
+                            @Html.LabelFor(model => model.Tarih, htmlAttributes: new { @class = "control-label col-md-2" })
+                        </b>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Tarih, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                            @Html.ValidationMessageFor(model => model.Tarih, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <b>
+                            @Html.Label("Etiketler", new { @class = "control-label col-md-2" })
+                        </b>
+                        <div class="col-md-10">
+                            @Html.TextBox("Etiketler")
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Kaydet" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    @Html.ActionLink("Geri Dön", "Index")
+                </div>
+
+
+            </div>
+        </div>
+        <div class="card-footer small text-muted">@DateTime.Now</div>
+    </div>
+}

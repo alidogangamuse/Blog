@@ -1,0 +1,47 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<Blog.Models.Makale>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+@foreach (var item in Model)
+{
+    <div class="card mb-4 my-4">
+        <img class="card-img-top" src="@item.Foto" width="750" height="300" alt="@item.Baslik">
+
+        <div class="card-body">
+            <h2 class="card-title">
+                <a href="/Home/MakaleDetay/@item.MakaleId">@item.Baslik</a>
+            </h2>
+
+            @if (item.Icerik.Length > 150)
+            {
+                <p>@Html.Raw(item.Icerik.Substring(0, 150)) ...</p>
+            }
+            else
+            {
+                <p>@Html.Raw(item.Icerik) </p>
+            }
+
+            <a href="/Home/MakaleDetay/@item.MakaleId" class="btn btn-primary">Daha Fazla &rarr;</a>
+        </div>
+        <div class="card-footer text-muted">
+
+            <p>
+                <b class="fa fa-user"> Yazar:   </b><a href="/Uye/UyeProfil/@item.Uye.UyeId">@item.Uye.KullaniciAdi</a>
+                <b class="fa fa-calendar-times-o"> Tarih:  </b> @String.Format("{0: MMMM yyyy}", item.Tarih)
+                <b class="fa fa-tags"> Etiketler: </b>@item.Etikets.Count()
+            </p>
+
+        </div>
+    </div>
+
+}
+
+<div class="pagination justify-content-center ">
+
+    @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }), PagedListRenderOptions.Classic)
+
+</div>

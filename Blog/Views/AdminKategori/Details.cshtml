@@ -1,0 +1,44 @@
+﻿@model Blog.Models.Kategori
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Index/">Admin Menu</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a href="/AdminKategori/Index/">Admin Kategoriler</a>
+        </li>
+        <li class="breadcrumb-item active">Admin Kategori Detay</li>
+    </ol>
+    <!-- Example DataTables Card-->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> Kategori Detay
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <h4 ><b>@Html.DisplayNameFor(model => model.KategoriAdi): </b>@Html.DisplayFor(model => model.KategoriAdi)</h4>
+                <hr />
+                <br />
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        @Html.ActionLink("Düzenle", "Edit", new { id = Model.KategoriId }, new { @class = "btn btn-warning btn-xs" })
+                        @Html.ActionLink("Geri Dön", "Index")
+                    </div>
+                </div>
+            </div>
+            <div>
+                
+            </div>
+
+
+        </div>
+    </div>
+    <div class="card-footer small text-muted">@DateTime.Now</div>
+</div>

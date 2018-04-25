@@ -1,0 +1,50 @@
+﻿@model Blog.Models.Kategori
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Admin/Index/">Admin Menu</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a href="/AdminKategori/Index/">Admin Kategoriler</a>
+            </li>
+            <li class="breadcrumb-item active">Admin Kategori Sil</li>
+        </ol>
+        <!-- Example DataTables Card-->
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-table"></i> Kategori Sil
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+
+                    <h4><b>@Html.DisplayNameFor(model => model.KategoriAdi): </b>@Html.DisplayFor(model => model.KategoriAdi)</h4>
+                    <hr />
+                    <div class="form-actions no-color">
+
+                        <div class="alert alert-danger alert-dismissable">
+                            <a class="panel-close close" data-dismiss="alert">×</a>
+                            <i class="fa fa-warning"></i>
+                            <b>@Html.DisplayFor(model => model.KategoriAdi)</b> adlı kategoriyi silmek üzeresiniz?
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value=" Sil " class="btn btn-danger" />
+                                @Html.ActionLink("Geri Dön", "Index")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">@DateTime.Now</div>
+    </div>
+}

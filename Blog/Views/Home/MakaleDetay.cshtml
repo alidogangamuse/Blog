@@ -1,0 +1,172 @@
+﻿@model Blog.Models.Makale
+
+@{
+    ViewBag.Title = "MakaleDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Title -->
+<h1 class="mt-4">@Model.Baslik</h1>
+<!-- Author -->
+<p class="lead">
+    <img class="rounded-circle" src="@Model.Uye.Foto" width="75" />
+    <a href="/Uye/UyeProfil/@Model.UyeId">@Model.Uye.AdSoyad</a>
+</p>
+<hr /><!-- Date/Time -->
+<p><span class="fa fa-calendar"> @String.Format("{0: MMMM yyyy}", Model.Tarih)</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="fa fa-list"> @Model.Kategori.KategoriAdi (@Model.Kategori.Makales.Count()) </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="fa fa-comment"> @Model.Yorums.Count()</span> </p>
+<hr />
+<!-- Preview Image -->
+<img class="img img-responsive" src="@Model.Foto" width="100%" height="350" alt="@Model.Baslik">
+<hr />
+<!-- Post Content -->
+<p class="lead">
+    @Html.Raw(Model.Icerik)
+</p>
+<blockquote class="blockquote">
+    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <footer class="blockquote-footer">
+        Etiket:
+
+        <cite title="Source Title">
+            @foreach (var item in Model.Etikets)
+            {
+                <span>@item.EtiketAdi, </span>
+            }
+        </cite>
+    </footer>
+</blockquote>
+<hr />
+
+@if (Session["uyeid"] != null)
+{
+    <div class="card my-4">
+        <h5 class="card-header">Yorum Yap:</h5>
+        <div class="card-body">
+            <form>
+                <div class="form-group">
+                    <textarea id="yorum" typeof="text" class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" id="gonder" class="btn btn-primary">Paylaş</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card my-4">
+        <h5 class="card-header"><span class="fa fa-comment"></span> Yorumlar</h5>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                @foreach (var item in Model.Yorums.ToList())
+                {
+                    <li class="list-group-item">
+                        <div class="media mb-4">
+                            <img class="d-flex mr-3 rounded-circle" src="@item.Uye.Foto" width="75" height="75" alt="@item.Uye.AdSoyad">
+                            <div class="media-body">
+                                <h5 class="mt-0">@item.Uye.KullaniciAdi </h5>
+                                @item.Icerik    @if (Convert.ToInt32(Session["uyeid"]) == item.UyeId)
+                                {
+                                    <a class="btn btn-danger" href="/Home/YorumSil/@item.YorumId">Sil</a>
+                                }
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer">Yayınlanma Tarihi: <cite title=" Source Title">@item.Tarih</cite></footer>
+                                </blockquote>
+                                @*<p><i>@item.Tarih</i></p>*@
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+
+
+
+    @*<div class="card my-4 col-md-12">
+            <div class="media mb-4">
+                <img class="d-flex mr-3 rounded-circle" src="@item.Uye.Foto" width="50" height="50" alt="@item.Uye.AdSoyad">
+                <div class="media-body">
+                    <h5 class="mt-0">@item.Uye.KullaniciAdi </h5>
+                    @item.Icerik    @if (Convert.ToInt32(Session["uyeid"]) == item.UyeId)
+                    {
+                        <a class="btn btn-danger" href="/Home/YorumSil/@item.YorumId">Sil</a>
+                    }
+                    <p><i>@item.Tarih</i></p>
+                </div>
+            </div>
+        </div>*@
+
+}
+else
+{
+    <h3>Makaleye yorum yapmak için lütfen giriş yapınız</h3>
+    <p><a href="/Uye/Login/">Giriş Yap</a></p>
+
+    <div class="card my-4">
+        <h5 class="card-header"><span class="fa fa-comment"></span> Yorumlar</h5>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                @foreach (var item in Model.Yorums.ToList())
+                {
+                    <li class="list-group-item">
+                        <div class="media mb-4">
+                            <img class="d-flex mr-3 rounded-circle" src="@item.Uye.Foto" width="75" height="75" alt="@item.Uye.AdSoyad">
+                            <div class="media-body">
+                                <h5 class="mt-0">@item.Uye.KullaniciAdi </h5>
+                                @item.Icerik    @if (Convert.ToInt32(Session["uyeid"]) == item.UyeId)
+                                {
+                                    <a class="btn btn-danger" href="/Home/YorumSil/@item.YorumId">Sil</a>
+                                }
+                                <blockquote class="blockquote mb-0">
+                                    <footer class="blockquote-footer">Yayınlanma Tarihi: <cite title=" Source Title">@item.Tarih</cite></footer>
+                                </blockquote>
+                                @*<p><i>@item.Tarih</i></p>*@
+                            </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+}
+
+<script src="~/Content/vendor/jquery/jquery.min.js"></script>
+<script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function ()
+    {
+        $("#gonder").click(function ()
+        {
+                var yorumunuz = $("#yorum").val();
+                $.ajax(
+                {
+                    url: '/Home/YorumYap/',
+                    data: { yorum:yorumunuz, Makaleid:@Model.MakaleId },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data)
+                    {
+                        alert("Yorumunuz Gönderildi: " + yorumunuz);
+                    }
+                });
+        });
+
+    })
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+         $.ajax(
+                {
+                    url: '/Home/OkunmaArttir/',
+                    data: { Makaleid:@Model.MakaleId },
+                    type: 'POST',
+                });
+
+    })
+
+</script>

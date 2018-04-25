@@ -1,0 +1,91 @@
+﻿@model Blog.Models.Makale
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Admin/Index/">Admin Menu</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a href="/AdminMakale/Index/">Admin Makaleler</a>
+            </li>
+            <li class="breadcrumb-item active">Admin Makale Sil</li>
+        </ol>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-newspaper-o"></i> Makale Sil
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Kategori.KategoriAdi)</th>
+                                <th>@Html.DisplayNameFor(model => model.Baslik)</th>
+                                <th>@Html.DisplayNameFor(model => model.Icerik)</th>
+                                <th>@Html.DisplayNameFor(model => model.Foto)</th>
+                                <th>@Html.DisplayNameFor(model => model.Tarih)</th>
+                                <th>@Html.DisplayNameFor(model => model.UyeId)</th>
+                                <th>@Html.DisplayNameFor(model => model.Okunma)</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(model => model.Kategori.KategoriAdi)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Baslik)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Icerik)
+                                </td>
+                                <td>
+                                    <img src="@Model.Foto" alt="Alternate Text" class="img-responsive" width="75" height="75" />
+                                    @*@Html.DisplayFor(model => model.Foto)*@
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Tarih)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.UyeId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Okunma)
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+                    <div class="form-actions no-color">
+
+                        <div class="alert alert-danger alert-dismissable my-4">
+                            <a class="panel-close close" data-dismiss="alert">×</a>
+                            <i class="fa fa-warning"></i>
+                            <b>@Html.DisplayFor(model => model.Baslik)</b>  adlı makaleyi silmek üzeresiniz?
+                        </div>
+
+                        <p><input type="submit" value=" Sil " class="btn btn-danger" /></p>
+
+                        @Html.ActionLink("Geri Dön", "Index")
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">@DateTime.Now</div>
+        </div>
+    </div>
+
+
+}

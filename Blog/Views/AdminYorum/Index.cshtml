@@ -1,0 +1,125 @@
+﻿@model IEnumerable<Blog.Models.Yorum>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Index/">Admin Menu</a>
+        </li>
+        <li class="breadcrumb-item active">Admin Yorumlar</li>
+    </ol>
+    <!-- Example DataTables Card-->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-comments"></i> Admin Yorumlar
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Makale.Baslik)</th>
+                            <th>@Html.DisplayNameFor(model => model.Uye.KullaniciAdi)</th>
+                            <th>@Html.DisplayNameFor(model => model.Icerik)</th>
+                            <th>@Html.DisplayNameFor(model => model.Tarih)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Makale.Baslik)</th>
+                            <th>@Html.DisplayNameFor(model => model.Uye.KullaniciAdi)</th>
+                            <th>@Html.DisplayNameFor(model => model.Icerik)</th>
+                            <th>@Html.DisplayNameFor(model => model.Tarih)</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <!-- foreach dönecek -->
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Makale.Baslik)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Uye.KullaniciAdi)
+                                </td>
+                                <td>
+                                    @if (item.Icerik.Length > 50)
+                                    {
+                                        <p>@Html.Raw(item.Icerik.Substring(0, 50)) ...</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@Html.Raw(item.Icerik) </p>
+                                    }
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tarih)
+                                </td>
+
+                                <td>
+                                    @Html.ActionLink("Düzenle", "Edit", new { id = item.YorumId }, new { @class = "btn btn-warning btn-xs" })
+                                    @Html.ActionLink("Detay", "Details", new { id = item.YorumId }, new { @class = "btn btn-primary btn-xs" })
+                                    @Html.ActionLink("Sil", "Delete", new { id = item.YorumId }, new { @class = "btn btn-danger btn-xs" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">@DateTime.Now</div>
+    </div>
+</div>
+
+<hr />
+
+
+@*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Makale.Baslik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uye.KullaniciAdi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Icerik)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarih)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Makale.Baslik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uye.KullaniciAdi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Icerik)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tarih)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.YorumId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.YorumId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.YorumId })
+            </td>
+        </tr>
+    }
+
+    </table>*@

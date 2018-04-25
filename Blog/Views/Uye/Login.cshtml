@@ -1,0 +1,107 @@
+﻿@model Blog.Models.Uye
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header"><h4><b>Giriş Yap</b></h4></div>
+            <div class="card-body">
+                <form>
+                    @if (ViewBag.Uyarı == null)
+                    {
+
+                        <div class="col-auto my-4">
+                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">@@</div>
+                                </div>
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "", @type = "mail", @placeholder = "Email Adresiniz" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="col-auto ">
+                            <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><span class="fa fa-user-secret"></span></div>
+                                </div>
+                                @Html.EditorFor(model => model.Sifre, new { htmlAttributes = new { @class = "form-control", @id = "sifre", @type = "password", @required = "", @placeholder = "Şifreniz" } })
+                                @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="checkbox" onchange="document.getElementById('sifre').type = this.checked ? 'text' : 'password' " /><span> Şifreyi Göster</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-12">
+                                <input type="submit" value="Giriş" class="btn btn-primary btn-block" />
+                            </div>
+                        </div>
+
+
+
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            @*<input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">*@
+                            <div class="col-md-12">
+                                <label for="exampleInputEmail1">Email Adresi</label>
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "", @type = "email", @placeholder = "Email Adresiniz" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @*<input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">*@
+                            <div class="col-md-12">
+                                <label for="exampleInputPassword1">Şifre</label>
+                                @Html.EditorFor(model => model.Sifre, new { htmlAttributes = new { @class = "form-control", @id = "sifre", @type = "password", @required = "", @placeholder = "Şifreniz" } })
+                                @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="checkbox" onchange="document.getElementById('sifre').type = this.checked ? 'text' : 'password' " /><span> Şifreyi Göster</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-12">
+                                <input type="submit" value="Giriş" class="btn btn-primary btn-block" />
+                            </div>
+                        </div>
+
+                        <div class="alert alert-danger alert-dismissable ">
+                            <a class="panel-close close" data-dismiss="alert">×</a>
+                            <b>@ViewBag.Uyarı</b>
+                        </div>
+                    }
+
+                    @*<a class="btn btn-primary btn-block" href="index.html">Login</a>*@
+                </form>
+                <div class="text-center">
+                    <a class="d-block small mt-3" href="/Uye/Create/">Kayıt Ol</a>
+                    <a class="d-block small" href="/Uye/Duzenle/">Şifremi Unuttum</a>
+                    @*@Html.ActionLink("Forget", "Duzenle", new { Controller = "Uye" })*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+

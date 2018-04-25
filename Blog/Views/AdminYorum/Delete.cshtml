@@ -1,0 +1,78 @@
+﻿@model Blog.Models.Yorum
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/Admin/Index/">Admin Menu</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a href="/AdminYorum/Index/">Admin Yorumlar</a>
+            </li>
+            <li class="breadcrumb-item active">Admin Yorum Sil</li>
+        </ol>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-comments"></i> Yorum Sil
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Makale.Baslik)</th>
+                                <th>@Html.DisplayNameFor(model => model.Uye.KullaniciAdi)</th>
+                                <th>@Html.DisplayNameFor(model => model.Icerik)</th>
+                                <th>@Html.DisplayNameFor(model => model.Tarih)</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(model => model.Makale.Baslik)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Uye.KullaniciAdi)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Icerik)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => model.Tarih)
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <div class="form-actions no-color">
+
+                        <div class="alert alert-danger alert-dismissable my-4">
+                            <a class="panel-close close" data-dismiss="alert">×</a>
+                            <i class="fa fa-warning"></i>
+                            Yorumu silmek üzeresiniz?
+                        </div>
+
+                        <p><input type="submit" value=" Sil " class="btn btn-danger" /></p>
+
+                        @Html.ActionLink("Geri Dön", "Index")
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">@DateTime.Now</div>
+        </div>
+    </div>
+
+}

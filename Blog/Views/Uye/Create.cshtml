@@ -1,0 +1,132 @@
+﻿@model Blog.Models.Uye
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Uye", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="container">
+    <div class="card card-login mx-auto mt-5">
+        <div class="card-header"><h4><b>Kayıt Ol</b></h4></div>
+        <div class="card-body">
+            <form>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label for="exampleInputEmail1"><b>Ad-Soyad</b></label>
+                            @Html.EditorFor(model => model.AdSoyad, new { htmlAttributes = new { @class = "form-control", @required = "" } })
+                            @Html.ValidationMessageFor(model => model.AdSoyad, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <label for="exampleInputEmail1"><b>Kullanıcı Adı</b></label>
+                        @Html.EditorFor(model => model.KullaniciAdi, new { htmlAttributes = new { @class = "form-control", @required = "" } })
+                        @Html.ValidationMessageFor(model => model.KullaniciAdi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label for="exampleInputEmail1"><b>Email Adresi</b></label>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @required = "", @type="email" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        <b class="text-danger">@ViewBag.HataMesaji</b>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label for="exampleInputEmail1"><b>Şifre</b></label>
+                        @Html.EditorFor(model => model.Sifre, new { htmlAttributes = new { @class = "form-control", @id="sifre", @type = "password", @required = "" } })
+                        @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="checkbox" onchange="document.getElementById('sifre').type = this.checked ? 'text' : 'password' " /><span> Şifreyi Göster</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label for="exampleInputEmail1"><b>Fotoğraf Ekleyiniz</b></label>
+                        <input type="file" name="Foto" id="Foto" accept=".jpg, .png, .gif, .JPEG, .jpeg" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-12">
+                        <input type="submit" value="Kaydet" class="btn btn-primary btn-block my-4" />
+                    </div>
+                </div>
+                @*<a class="btn btn-primary btn-block" href="index.html">Login</a>*@
+            </form>
+
+        </div>
+
+    </div>
+    <div>
+        @Html.ActionLink("Geri Dön", "Login")
+    </div>
+</div>
+    @*<div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KullaniciAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KullaniciAdi, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KullaniciAdi, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2", @type = "email" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sifre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Sifre, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                    @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.AdSoyad, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.AdSoyad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.AdSoyad, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="file" name="Foto" id="Foto" accept=".jpg, .png, .gif, .JPEG, .jpeg" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Kaydet" class="btn btn-default" />
+                </div>
+            </div>
+        </div>*@
+}
+
